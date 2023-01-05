@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="login_and_registeration.LoginActivity">
+    tools:context="login_and_registeration.LoginActivity"
+    android:background="@color/white">
+
 
         <ImageView
             android:id="@+id/imgAppLogo"
-            android:layout_width="130dp"
-            android:layout_height="124dp"
+            android:layout_width="191dp"
+            android:layout_height="160dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="@+id/txtAppName"
             app:layout_constraintHorizontal_bias="0.497"
