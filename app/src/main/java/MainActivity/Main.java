@@ -15,6 +15,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 
 public class Main extends AppCompatActivity {
@@ -22,9 +26,13 @@ public class Main extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private SideBarBinding binding;
 
+    ArrayList<Box> boxes = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         binding = SideBarBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -48,6 +56,21 @@ public class Main extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        //Inicializar el "RecyclerView"
+        RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
+
+        //Metodo para crear los elementos guardados
+        setUpBoxModels();
+
+        //Inicializar el adaptador para el "RecyclerView"
+
+        B_RecyclerViewAdapter adapter = new B_RecyclerViewAdapter(this, boxes );
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
     }
 
     @Override
@@ -63,4 +86,17 @@ public class Main extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private void setUpBoxModels(){
+
+        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
+        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
+        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
+        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
+        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
+
+    }
+
+
+
 }
