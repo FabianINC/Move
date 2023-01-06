@@ -75,6 +75,8 @@ public class Main extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Para que los colores del sideBar se pueda ver
+        navigationView.setItemIconTintList(null);
 
     }
 
