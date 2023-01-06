@@ -29,7 +29,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="44dp"
         android:background="@color/white"
         app:popupTheme="@style/Theme.Move.PopupOverlay" />
 
