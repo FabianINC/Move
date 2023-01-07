@@ -11,6 +11,7 @@ import com.archivo.move.databinding.SideBarBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -96,11 +97,16 @@ public class Main extends AppCompatActivity {
 
     private void setUpBoxModels(){
 
-        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
-        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
-        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
-        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
-        boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
+
+        for(int i = 0; i < 10; i++){
+
+
+            boxes.add(new Box("Alajuela, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
+
+
+        }
+
+
 
     }
 

@@ -28,7 +28,7 @@
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_content_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

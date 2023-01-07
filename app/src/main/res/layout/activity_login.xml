@@ -10,13 +10,13 @@
 
         <ImageView
             android:id="@+id/imgAppLogo"
-            android:layout_width="191dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/txtAppName"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="@+id/txtAppName"
-            app:layout_constraintTop_toBottomOf="@+id/txtAppName"
+            android:layout_width="344dp"
+            android:layout_height="158dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.537"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/img_applogo" />
 
         <Button
@@ -110,24 +110,6 @@
             app:layout_constraintTop_toBottomOf="@+id/txtForgotPassword"
             tools:ignore="UsingOnClickInXml" />
 
-        <TextView
-            android:id="@+id/txtAppName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="32dp"
-            android:text="Mi Aparta Universitario"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.039" />
-
         <EditText
             android:id="@+id/txtEmail"
             android:layout_width="0dp"
@@ -145,9 +127,9 @@
             android:paddingBottom="10dp"
             android:textColorHint="@color/black"
             android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="@+id/txtAppName"
+            app:layout_constraintEnd_toEndOf="@+id/imgAppLogo"
             app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="@+id/txtAppName"
+            app:layout_constraintStart_toStartOf="@+id/imgAppLogo"
             app:layout_constraintTop_toBottomOf="@+id/imgAppLogo" />
 
         <TextView
@@ -164,5 +146,16 @@
             app:layout_constraintEnd_toEndOf="@+id/btnLogin"
             app:layout_constraintStart_toStartOf="@+id/btnLogin"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+        <ImageView
+            android:id="@+id/exit_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="exitLogin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_x_black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

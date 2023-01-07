@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.archivo.move.R;
 
+import MainActivity.Main;
+
 public class LoginActivity extends AppCompatActivity {
 
     //VARIABLES GLOBALES
@@ -41,6 +43,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(registerScreen);
 
     }
+
+    //Metodo para no tener que iniciar sesion
+    public void exitLogin(View view){
+        Intent mainScreen = new Intent(LoginActivity.this, Main.class);
+        startActivity(mainScreen);
+
+    }
+
 
     //CUSTOM TOAST
 
