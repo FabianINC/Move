@@ -22,4 +22,15 @@
     <style name="Theme.Move.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Move.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="roundimageview">
+        
+         <item name="cornerFamily">rounded</item>
+         <item name="cornerSize">30dp</item>
+         <item name="color">@color/white</item>
+
+
+    </style>
+
 </resources>
