@@ -2,8 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--PERMISO PARA INTERNET-->
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--
+    DEBIDO A QUE SE UTLIZA EL FORMATO HTTP Y NO HTTPS SE DEBE UTILIZAR
+    USESCLEARTRAFFIC TRUE
+    ESTO HACE QUE SE DEBAN IMPLEMENTAR MEDIDAS DE SEGURIDAD
+    -->
+
     <application
         android:allowBackup="true"
+
+        android:usesCleartextTraffic = "true"
+
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
