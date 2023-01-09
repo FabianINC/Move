@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                   params.put("password",password);
 
 
-                  return super.getParams();
+                  return params;
               }
           };
 
