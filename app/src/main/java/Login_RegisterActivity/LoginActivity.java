@@ -1,9 +1,9 @@
-package login_and_registeration;
+package Login_RegisterActivity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,59 +22,81 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.archivo.move.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+import MainActivity.Main;
 
-    // VARIABLES GLOBALES
-    EditText txt_name,txt_email,txt_password,txt_confirmPassword;
-    Button btn_registration;
-    String name, email, password, confirm;
+public class LoginActivity extends AppCompatActivity {
 
-    //private static final String URL1 = "http://152.231.173.118/usuarios/save.php";
-
+    //VARIABLES GLOBALES
+    EditText txt_email,txt_password;
+    String  email , password, name , apiKey;
+    Button btnLogin;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_login);
 
+        // SE IDENTIFICA CADA VARIABLE GLOBAL
+        txt_email = findViewById(R.id.txtEmail);
+        txt_password = findViewById(R.id.txtPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        sharedPreferences = getSharedPreferences("MyAppName" , MODE_PRIVATE);
 
+        //ESTO MANTIENE LA SESION INICIADA UNA VEZ QUE HAYA INICIADO SESION
+        if(sharedPreferences.getString("logged", "false").equals("true")){
 
-        txt_name = findViewById(R.id.txt_name);
-        txt_email = findViewById(R.id.txt_email);
-        txt_password = findViewById(R.id.txt_password);
-        txt_confirmPassword = findViewById(R.id.txt_confirm);
-        btn_registration = findViewById(R.id.btn_registration);
+            startActivity(new Intent(LoginActivity.this, Main.class));
+            finish();
 
-        btn_registration.setOnClickListener(new View.OnClickListener() {
+        }
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                name = txt_name.getText().toString();
                 email = txt_email.getText().toString();
                 password = txt_password.getText().toString();
-                confirm = txt_confirmPassword.getText().toString();
 
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                String url ="http://192.168.100.5/login_register/register.php";
+                String url ="http://192.168.100.5/login_register/login.php";
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
 
-                                if(response.equals("success")){
+                                try {
 
-                                    showToastGood("Registro exitoso");
-                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                    finish();
-                                }else{
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    String status = jsonObject.getString("status");
+                                    String message = jsonObject.getString("message");
+                                    if(status.equals("success")){
 
-                                    showToastWrong(response);
+                                       name = jsonObject.getString("name");
+                                       email = jsonObject.getString("email");
+                                       apiKey = jsonObject.getString("apiKey");
+                                       SharedPreferences.Editor editor = sharedPreferences.edit();
+                                       editor.putString("logged" , "true");
+                                       editor.putString("name" , name);
+                                       editor.putString("email" , email);
+                                       editor.putString("apiKey" , apiKey);
+                                       editor.apply();
+                                       showToastGood("Login successful");
+                                       startActivity(new Intent(LoginActivity.this, Main.class));
+                                       finish();
+
+                                    }
 
 
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
 
 
@@ -83,36 +104,41 @@ public class RegisterActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        showToastWrong(error.getMessage());
+
                     }
                 }){
                     protected Map<String, String> getParams(){
                         Map<String, String> paramV = new HashMap<>();
-                        paramV.put("name", name);
+
                         paramV.put("email", email);
                         paramV.put("password", password);
                         return paramV;
                     }
                 };
                 queue.add(stringRequest);
-
             }
         });
+    }
 
+    // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO
+    public void newUserScreen(View view){
+        Intent registerScreen = new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(registerScreen);
 
     }
 
+    //Metodo para no tener que iniciar sesion
+    public void exitLogin(View view){
+        Intent mainScreen = new Intent(LoginActivity.this, Main.class);
+        startActivity(mainScreen);
 
-
-
-
-    public void AlreadyRegistered(View newUserClicked){
-        // SI ES PRESIONADO EL TEXTO DE 'txt_exist' SE MUESTRA LA PANTALLA DE LOGIN
-        // LLAMADO A 'login'
-        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
     }
 
 
     //CUSTOM TOAST
+
 
     // METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO
     public void showToastGood(String toastMessage){
