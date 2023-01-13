@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +30,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     // VARIABLES GLOBALES
     EditText txt_name,txt_email,txt_password,txt_confirmPassword;
-    RequestQueue requestQueue;
+    Button btn_registration;
+    String name, email, password, confirm;
 
-    private static final String URL1 = "http://152.231.173.118/usuarios/save.php";
+    //private static final String URL1 = "http://152.231.173.118/usuarios/save.php";
 
 
     @Override
@@ -39,68 +41,68 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        //REQUEST QUEUE
-        requestQueue = Volley.newRequestQueue(this);
+
 
         txt_name = findViewById(R.id.txt_name);
         txt_email = findViewById(R.id.txt_email);
         txt_password = findViewById(R.id.txt_password);
         txt_confirmPassword = findViewById(R.id.txt_confirm);
+        btn_registration = findViewById(R.id.btn_registration);
 
+        btn_registration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                name = txt_name.getText().toString();
+                email = txt_email.getText().toString();
+                password = txt_password.getText().toString();
+                confirm = txt_confirmPassword.getText().toString();
+
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                String url ="http://192.168.100.5/login_register/register.php";
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                if(response.equals("success")){
+
+                                    showToastGood("Registro exitoso");
+                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                    finish();
+                                }else{
+
+                                    showToastWrong(response);
+
+
+                                }
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }){
+                    protected Map<String, String> getParams(){
+                        Map<String, String> paramV = new HashMap<>();
+                        paramV.put("name", name);
+                        paramV.put("email", email);
+                        paramV.put("password", password);
+                        return paramV;
+                    }
+                };
+                queue.add(stringRequest);
+
+            }
+        });
 
 
     }
 
-    public void getRegistered(View view){
-
-        String name = txt_name.getText().toString().trim();
-        String email = txt_email.getText().toString().trim();
-        String password = txt_password.getText().toString().trim();
-        String confirmPassword = txt_confirmPassword.getText().toString().trim();
-
-        createUser(name,email,password);
 
 
-    }
-
-    private void createUser(final String name,final String email,final String password) {
-
-          StringRequest stringRequest = new StringRequest(
-
-                  Request.Method.POST,
-                  URL1,
-                  new Response.Listener<String>() {
-                      @Override
-                      public void onResponse(String response) {
-                        Toast.makeText(RegisterActivity.this, "REGISTRADO",Toast.LENGTH_SHORT).show();
-                      }
-                  },
-                  new Response.ErrorListener() {
-                      @Override
-                      public void onErrorResponse(VolleyError error) {
-
-                      }
-                  }
-
-          ){
-              @Nullable
-              @Override
-              protected Map<String, String> getParams() throws AuthFailureError {
-
-                  Map<String, String> params =  new HashMap<>();
-
-                  params.put("name",name);
-                  params.put("email",email);
-                  params.put("password",password);
-
-
-                  return params;
-              }
-          };
-
-          requestQueue.add(stringRequest);
-
-    }
 
 
     public void AlreadyRegistered(View newUserClicked){

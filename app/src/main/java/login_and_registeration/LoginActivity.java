@@ -3,6 +3,7 @@ package login_and_registeration;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,16 +14,29 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.archivo.move.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import MainActivity.Main;
 
 public class LoginActivity extends AppCompatActivity {
 
     //VARIABLES GLOBALES
-    EditText emailData,passwordData;
+    EditText txt_email,txt_password;
+    String  email , password, name , apiKey;
     Button btnLogin;
-    TextView newAccount;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +44,82 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // SE IDENTIFICA CADA VARIABLE GLOBAL
-        emailData = findViewById(R.id.txtEmail);
-        passwordData = findViewById(R.id.txtPassword);
+        txt_email = findViewById(R.id.txtEmail);
+        txt_password = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        newAccount = findViewById(R.id.txtNewAccount);
+        sharedPreferences = getSharedPreferences("MyAppName" , MODE_PRIVATE);
 
+        //ESTO MANTIENE LA SESION INICIADA UNA VEZ QUE HAYA INICIADO SESION
+        if(sharedPreferences.getString("logged", "false").equals("true")){
+
+            startActivity(new Intent(LoginActivity.this, Main.class));
+            finish();
+
+        }
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                email = txt_email.getText().toString();
+                password = txt_password.getText().toString();
+
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                String url ="http://192.168.100.5/login_register/login.php";
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                try {
+
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    String status = jsonObject.getString("status");
+                                    String message = jsonObject.getString("message");
+                                    if(status.equals("success")){
+
+                                       name = jsonObject.getString("name");
+                                       email = jsonObject.getString("email");
+                                       apiKey = jsonObject.getString("apiKey");
+                                       SharedPreferences.Editor editor = sharedPreferences.edit();
+                                       editor.putString("logged" , "true");
+                                       editor.putString("name" , name);
+                                       editor.putString("email" , email);
+                                       editor.putString("apiKey" , apiKey);
+                                       editor.apply();
+                                       showToastGood("Login successful");
+                                       startActivity(new Intent(LoginActivity.this, Main.class));
+                                       finish();
+
+                                    }
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        showToastWrong(error.getMessage());
+
+                    }
+                }){
+                    protected Map<String, String> getParams(){
+                        Map<String, String> paramV = new HashMap<>();
+
+                        paramV.put("email", email);
+                        paramV.put("password", password);
+                        return paramV;
+                    }
+                };
+                queue.add(stringRequest);
+            }
+        });
     }
 
     // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO

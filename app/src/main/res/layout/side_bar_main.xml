@@ -7,13 +7,16 @@
     tools:context="MainActivity.Main">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.Move.AppBarOverlay">
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -29,19 +32,15 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/color_sidebar"
         app:popupTheme="@style/Theme.Move.PopupOverlay" />
 
-    <TextView
-        android:id="@+id/title_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anton"
-        android:text="MOVE"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/black"
-        android:textSize="34sp"
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="247dp"
+        android:layout_height="31dp"
+        android:background="@drawable/field"
         app:layout_anchor="@+id/toolbar"
         app:layout_anchorGravity="center" />
 

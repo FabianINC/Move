@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mi Aparta Universitario</string>
+    <string name="app_name">Move</string>
 
     <!--REGISTRO STRINGS -->
     <string name="txt_registertitle">Register</string>
