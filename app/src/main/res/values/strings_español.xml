@@ -3,7 +3,7 @@
     <string name="app_name">Move</string>
 
     <!--REGISTRO STRINGS -->
-    <string name="txt_registertitle">Registro</string>
+    <string name="txt_registertitle">Registro</string> <!-- STRING TITULO -->
     <string name="txt_name">Nombre</string>
     <string name="txt_email">Email</string>
     <string name="txt_password">Contraseña</string>

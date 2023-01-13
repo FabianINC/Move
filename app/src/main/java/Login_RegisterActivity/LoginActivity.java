@@ -32,7 +32,7 @@ import MainActivity.Main;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //VARIABLES GLOBALES
+    /* VARIABLES GLOBALES */
     EditText txt_email,txt_password;
     String  email , password, name , apiKey;
     Button btnLogin;
@@ -43,13 +43,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // SE IDENTIFICA CADA VARIABLE GLOBAL
+        /* SE IDENTIFICA CADA VARIABLE GLOBAL */
         txt_email = findViewById(R.id.txtEmail);
         txt_password = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         sharedPreferences = getSharedPreferences("MyAppName" , MODE_PRIVATE);
 
-        //ESTO MANTIENE LA SESION INICIADA UNA VEZ QUE HAYA INICIADO SESION
+        /* SE MANTIENE LA SESION INICIADA UNA VEZ QUE HAYA INICIADO SESION */
         if(sharedPreferences.getString("logged", "false").equals("true")){
 
             startActivity(new Intent(LoginActivity.this, Main.class));
@@ -122,14 +122,14 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO
+    /* MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO */
     public void newUserScreen(View view){
         Intent registerScreen = new Intent(LoginActivity.this,RegisterActivity.class);
         startActivity(registerScreen);
 
     }
 
-    //Metodo para no tener que iniciar sesion
+    /* MÉTODO PARA USAR LA APP COMO 'Invitado' */
     public void exitLogin(View view){
         Intent mainScreen = new Intent(LoginActivity.this, Main.class);
         startActivity(mainScreen);
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
     //CUSTOM TOAST
 
 
-    // METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO
+    /* METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO */
     public void showToastGood(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_check,(ViewGroup) findViewById(R.id.check_toast));

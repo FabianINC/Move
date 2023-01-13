@@ -44,8 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         txt_name = findViewById(R.id.txt_name);
         txt_email = findViewById(R.id.txt_email);
         txt_password = findViewById(R.id.txt_password);
-        txt_confirmPassword = findViewById(R.id.txt_confirm);
-        btn_registration = findViewById(R.id.btn_registration);
+        txt_confirmPassword = findViewById(R.id.txt_passwordConfirmation);
+        btn_registration = findViewById(R.id.btn_registerAccount);
 
         btn_registration.setOnClickListener(new View.OnClickListener() {
             @Override
