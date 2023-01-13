@@ -135,6 +135,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(mainScreen);
     }
 
+    /* MÉTODO PARA REESTABLECER LA CONTRASEÑA */
+    public void resetPassword(View view){
+        Intent resetScreen = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+        startActivity(resetScreen);
+    }
 
     /* METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO */
     public void showToastGood(String toastMessage){

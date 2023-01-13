@@ -70,6 +70,7 @@
             android:clickable="true"
             android:focusable="true"
             android:minHeight="48dp"
+            android:onClick="resetPassword"
             android:text="@string/txt_forgotpassword"
             app:layout_constraintEnd_toEndOf="@+id/txtPassword"
             app:layout_constraintTop_toBottomOf="@+id/txtPassword" />

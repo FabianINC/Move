@@ -30,4 +30,8 @@
     <string name="txt_facebook">Facebook</string>
     <string name="txt_newaccount">You don´t have an account? Register here</string>
     <string name="txt_forgotpassword">Forgot password?</string>
+
+    <!-- RESET PASSWORD STRINGS -->
+    <string name="txt_newpassword">New Password</string>
+    <string name="txt_btnresetpassword">Reset</string>
 </resources>

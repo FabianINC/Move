@@ -31,6 +31,9 @@
     <string name="txt_newaccount">¿No tienes una cuenta? Registrate acá</string>
     <string name="txt_forgotpassword">Olvidé mi contraseña</string>
 
+    <!-- RESET PASSWORD STRINGS -->
+    <string name="txt_newpassword">Contraseña nueva</string>
+    <string name="txt_btnresetpassword">Reestablecer</string>
 
 
 </resources>

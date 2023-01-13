@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <!--PERMISO PARA INTERNET-->
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!--
-    DEBIDO A QUE SE UTLIZA EL FORMATO HTTP Y NO HTTPS SE DEBE UTILIZAR
-    USESCLEARTRAFFIC TRUE
-    ESTO HACE QUE SE DEBAN IMPLEMENTAR MEDIDAS DE SEGURIDAD
-    -->
+    xmlns:tools="http://schemas.android.com/tools" >
+    <!-- PERMISO PARA INTERNET -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-
-        android:usesCleartextTraffic = "true"
-
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -23,33 +13,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Move"
-        tools:targetApi="31">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31" >
         <activity
-            android:name="MainActivity.Main"
-            android:exported="false"
-            android:label="@string/title_activity_side_bar"
-            android:theme="@style/Theme.Move.NoActionBar">
+            android:name=".ResetPasswordActivity"
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="Login_RegisterActivity.LoginActivity"
-            android:exported="true">
+            android:name="MainActivity.Main"
+            android:exported="false"
+            android:label="@string/title_activity_side_bar"
+            android:theme="@style/Theme.Move.NoActionBar" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="Login_RegisterActivity.RegisterActivity"
-            android:exported="true">
-
-
+            android:name=".RegisterActivity"
+            android:exported="true" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
