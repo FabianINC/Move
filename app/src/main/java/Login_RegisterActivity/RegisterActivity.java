@@ -26,35 +26,35 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    // VARIABLES GLOBALES
+    /* VARIABLES GLOBALES */
     EditText txt_name,txt_email,txt_password,txt_confirmPassword;
     Button btn_registration;
-    String name, email, password, confirm;
+    String name, email, password, passwordConfirmation;
 
     //private static final String URL1 = "http://152.231.173.118/usuarios/save.php";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-
-
+        /* SE IDENTIFICA CADA VARIABLE GLOBAL */
         txt_name = findViewById(R.id.txt_name);
         txt_email = findViewById(R.id.txt_email);
         txt_password = findViewById(R.id.txt_password);
         txt_confirmPassword = findViewById(R.id.txt_passwordConfirmation);
         btn_registration = findViewById(R.id.btn_registerAccount);
 
+        /* EVENTO QUE SE EJECUTA CUANDO SE DA CLICK EN btnRegister */
         btn_registration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                /* SE CONVIERTE A STRING CADA VALOR INGRESADO */
                 name = txt_name.getText().toString();
                 email = txt_email.getText().toString();
                 password = txt_password.getText().toString();
-                confirm = txt_confirmPassword.getText().toString();
+                passwordConfirmation = txt_confirmPassword.getText().toString();
 
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 String url ="http://192.168.100.5/login_register/register.php";
@@ -64,33 +64,35 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
 
-                                if(response.equals("success")){
-
+                                if(response.equals("success")){ /* SI DEVUELVE 'success' ES PORQUE SE PUDO REGISTRAR EN LA BASE DE DATOS */
                                     showToastGood("Registro exitoso");
+
+                                    /* LLAMADO A LA PANTALLA DE LOGIN */
                                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                     finish();
                                 }else{
-
+                                    /* DEVUELVE EL ERROR */
                                     showToastWrong(response);
-
-
                                 }
-
 
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        /* ACÁ DEBERÍA IR OTRO TOAST PARA SABER SI ES OTRO TIPO DE ERROR ¿? */
                     }
                 }){
                     protected Map<String, String> getParams(){
                         Map<String, String> paramV = new HashMap<>();
+
+                        /* SE INGRESAN LOS DATOS DE CADA PARAMETRO DEL QUERY PHP */
                         paramV.put("name", name);
                         paramV.put("email", email);
                         paramV.put("password", password);
                         return paramV;
                     }
                 };
+                /* SE AÑADE EL QUERY DE REGISTRO */
                 queue.add(stringRequest);
 
             }
@@ -100,50 +102,43 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    /* MÉTODO PARA PASAR A LA PANTALLA DE LOGIN */
     public void AlreadyRegistered(View newUserClicked){
-        // SI ES PRESIONADO EL TEXTO DE 'txt_exist' SE MUESTRA LA PANTALLA DE LOGIN
-        // LLAMADO A 'login'
         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
     }
 
-
-    //CUSTOM TOAST
-
-    // METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO
+    /* METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO */
     public void showToastGood(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_check,(ViewGroup) findViewById(R.id.check_toast));
 
         TextView txtMessage = toastRegistration.findViewById(R.id.txt_toast);
 
-        txtMessage.setText(toastMessage);
+        txtMessage.setText(toastMessage); /* MENSAJE DEL TOAST */
 
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0 , 200);
 
-        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setDuration(Toast.LENGTH_SHORT); /* DURACIÓN DEL TOAST */
         toast.setView(toastRegistration);
-        toast.show();
+        toast.show(); /* SE MUESTRA EL TOAST */
     }
 
-    // METODO PARA MOSTRAR UN "TOAST" QUE FUE ERRONEO
+    /* METODO PARA MOSTRAR UN "TOAST" QUE FUE ERRONEO */
     public void showToastWrong(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_wrong,(ViewGroup) findViewById(R.id.wrong_toast));
 
         TextView txtMessage = toastRegistration.findViewById(R.id.toast_wrong);
 
-        txtMessage.setText(toastMessage);
+        txtMessage.setText(toastMessage); /* MENSAJE DEL TOAST */
 
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0 , 200);
 
-        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setDuration(Toast.LENGTH_SHORT); /* DURACIÓN DEL TOAST */
         toast.setView(toastRegistration);
-        toast.show();
+        toast.show(); /* SE MUESTRA EL TOAST */
     }
 
 

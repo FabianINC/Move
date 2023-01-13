@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0 , 200);
 
         toast.setDuration(Toast.LENGTH_SHORT); /* DURACIÓN DEL TOAST */
-        toast.setView(toastRegistration); /* UBICACIÓN DEL TOAST */
+        toast.setView(toastRegistration);
         toast.show(); /* SE MUESTRA EL TOAST */
     }
 
@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0 , 200);
 
         toast.setDuration(Toast.LENGTH_SHORT); /* DURACIÓN DEL TOAST */
-        toast.setView(toastRegistration); /* UBICACIÓN DEL TOAST */
+        toast.setView(toastRegistration);
         toast.show(); /* SE MUESTRA EL TOAST */
     }
 
