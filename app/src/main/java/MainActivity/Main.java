@@ -105,7 +105,7 @@ public class Main extends AppCompatActivity {
 
 
         }
-
+            boxes.add(new Box("San Jose, Costa Rica", "₡25,000",R.drawable.img_prueba2 ));
 
 
     }
