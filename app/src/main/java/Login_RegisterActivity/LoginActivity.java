@@ -133,26 +133,17 @@ public class LoginActivity extends AppCompatActivity {
 
     // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO
     public void newUserScreen(View view){
-        Intent registerScreen = new Intent(LoginActivity.this,RegisterActivity.class);
-
-        // LLAMADO A LA PANTALLA DE REGISTRO
-        startActivity(registerScreen);
+        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
     }
 
     // MÉTODO PARA USAR LA APP COMO 'Invitado'
     public void guestLogin(View view){
-        Intent mainScreen = new Intent(LoginActivity.this, Main.class);
-
-        //LLAMADO A LA PANTALLA PRINCIPAL
-        startActivity(mainScreen);
+        startActivity(new Intent(LoginActivity.this, Main.class));
     }
 
     // MÉTODO PARA REESTABLECER LA CONTRASEÑA
     public void resetPassword(View view){
-        Intent resetScreen = new Intent(LoginActivity.this, ResetPasswordActivity.class);
-
-        // LLAMADO A LA PANTALLA DE REESTABLECIMIENTO DE CONTRASEÑA
-        startActivity(resetScreen);
+        startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
     }
 
     // METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO
