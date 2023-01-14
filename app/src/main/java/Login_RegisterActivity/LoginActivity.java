@@ -32,7 +32,7 @@ import MainActivity.Main;
 
 public class LoginActivity extends AppCompatActivity {
 
-    /* VARIABLES GLOBALES */
+    // VARIABLES GLOBALES
     EditText txt_email,txt_password;
     String  email , password, name , apiKey;
     Button btnLogin;
@@ -43,13 +43,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        /* SE IDENTIFICA CADA VARIABLE GLOBAL */
+        //SE IDENTIFICA CADA VARIABLE GLOBAL
         txt_email = findViewById(R.id.txtEmail);
         txt_password = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         sharedPreferences = getSharedPreferences("MyAppName" , MODE_PRIVATE);
 
-        /* SE MANTIENE LA SESION INICIADA UNA VEZ QUE HAYA INICIADO SESION */
+        // SE MANTIENE LA SESION INICIADA UNA VEZ QUE HAYA INICIADO SESION
         if(sharedPreferences.getString("logged", "false").equals("true")){
             startActivity(new Intent(LoginActivity.this, Main.class));
             finish();
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                /* SE CONVIERTE A STRING LOS VALORES INGRESADOS */
+                // SE CONVIERTE A STRING LOS VALORES INGRESADOS
                 email = txt_email.getText().toString();
                 password = txt_password.getText().toString();
 
@@ -73,14 +73,23 @@ public class LoginActivity extends AppCompatActivity {
 
                                 try {
 
+                                    //Se utiliza un jsonObject ya que el php esta en formato JSON
                                     JSONObject jsonObject = new JSONObject(response);
+                                    //Esto retorna el estado del php, si el inicio de sesion fue exitoso o no
                                     String status = jsonObject.getString("status");
+                                    //Este retonrna el mensaje, utilizado sobretodo en caso de errores
                                     String message = jsonObject.getString("message");
+
+
                                     if(status.equals("success")){
 
+                                        //En caso de que se inicie sesion exitosamente se recuperan los datos del php
                                        name = jsonObject.getString("name");
                                        email = jsonObject.getString("email");
                                        apiKey = jsonObject.getString("apiKey");
+
+                                       /*Estos datos son utilizados en SharedPreferences lo que despues ayudara a
+                                         mantener la sesion iniciada despues de la primera vez que inicio sesion*/
                                        SharedPreferences.Editor editor = sharedPreferences.edit();
                                        editor.putString("logged" , "true");
                                        editor.putString("name" , name);
