@@ -122,57 +122,62 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /* MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO */
+    // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO
     public void newUserScreen(View view){
         Intent registerScreen = new Intent(LoginActivity.this,RegisterActivity.class);
-        startActivity(registerScreen);
 
+        // LLAMADO A LA PANTALLA DE REGISTRO
+        startActivity(registerScreen);
     }
 
-    /* MÉTODO PARA USAR LA APP COMO 'Invitado' */
+    // MÉTODO PARA USAR LA APP COMO 'Invitado'
     public void guestLogin(View view){
         Intent mainScreen = new Intent(LoginActivity.this, Main.class);
+
+        //LLAMADO A LA PANTALLA PRINCIPAL
         startActivity(mainScreen);
     }
 
-    /* MÉTODO PARA REESTABLECER LA CONTRASEÑA */
+    // MÉTODO PARA REESTABLECER LA CONTRASEÑA
     public void resetPassword(View view){
         Intent resetScreen = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+
+        // LLAMADO A LA PANTALLA DE REESTABLECIMIENTO DE CONTRASEÑA
         startActivity(resetScreen);
     }
 
-    /* METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO */
+    // METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO
     public void showToastGood(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_check,(ViewGroup) findViewById(R.id.check_toast));
 
         TextView txtMessage = toastRegistration.findViewById(R.id.txt_toast);
 
-        txtMessage.setText(toastMessage); /* MENSAJE DEL TOAST */
+        txtMessage.setText(toastMessage); // MENSAJE DEL TOAST
 
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0 , 200);
 
-        toast.setDuration(Toast.LENGTH_SHORT); /* DURACIÓN DEL TOAST */
+        toast.setDuration(Toast.LENGTH_SHORT); // DURACIÓN DEL TOAST
         toast.setView(toastRegistration);
-        toast.show(); /* SE MUESTRA EL TOAST */
+        toast.show(); // SE MUESTRA EL TOAST
     }
 
-    /* METODO PARA MOSTRAR UN TOAST QUE FUE ERRONEO */
+    // METODO PARA MOSTRAR UN TOAST QUE FUE ERRONEO
     public void showToastWrong(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_wrong,(ViewGroup) findViewById(R.id.wrong_toast));
 
         TextView txtMessage = toastRegistration.findViewById(R.id.toast_wrong);
 
-        txtMessage.setText(toastMessage); /* MENSAJE DEL TOAST */
+        txtMessage.setText(toastMessage); // MENSAJE DEL TOAST
 
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0 , 200);
 
-        toast.setDuration(Toast.LENGTH_SHORT); /* DURACIÓN DEL TOAST */
+        toast.setDuration(Toast.LENGTH_SHORT); // DURACIÓN DEL TOAST
         toast.setView(toastRegistration);
-        toast.show(); /* SE MUESTRA EL TOAST */
+        toast.show(); // SE MUESTRA EL TOAST
     }
 
 
