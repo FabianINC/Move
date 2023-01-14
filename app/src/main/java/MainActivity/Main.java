@@ -130,7 +130,9 @@ public class Main extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
+
                         if(response.equals("success")) {
+                            //En caso de que se haya cerrado sesion exitosamente los valores del SharedPreferences se ponene en blanco para no iniciar sesion de forma automatica
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("logged", "");
                             editor.putString("name", "");
