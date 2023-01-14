@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                                        editor.putString("email" , email);
                                        editor.putString("apiKey" , apiKey);
                                        editor.apply();
-                                       showToastGood("Login successful");
+                                       showSuccesfulToast("Login successful");
                                        startActivity(new Intent(LoginActivity.this, Main.class));
                                        finish();
 
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     /* SE MUESTRA UN TOAST CON EL ERROR */
                     public void onErrorResponse(VolleyError error) {
-                        showToastWrong(error.getMessage());
+                        showUnsuccessfulToast(error.getMessage());
                     }
                 }){
                     /**/
@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO
-    public void showToastGood(String toastMessage){
+    public void showSuccesfulToast(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_check,(ViewGroup) findViewById(R.id.check_toast));
 
@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // METODO PARA MOSTRAR UN TOAST QUE FUE ERRONEO
-    public void showToastWrong(String toastMessage){
+    public void showUnsuccessfulToast(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_wrong,(ViewGroup) findViewById(R.id.wrong_toast));
 
