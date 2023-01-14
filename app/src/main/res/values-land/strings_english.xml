@@ -33,5 +33,6 @@
 
     <!-- RESET PASSWORD STRINGS -->
     <string name="txt_newpassword">New Password</string>
+    <string name="txt_newpasswordconfirmation">Confirm your password</string>
     <string name="txt_btnresetpassword">Reset</string>
 </resources>

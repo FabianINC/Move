@@ -135,13 +135,13 @@
 
         <TextView
             android:id="@+id/txtNewAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="213dp"
+            android:layout_height="30dp"
             android:layout_marginTop="24dp"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="newUserScreen"
             android:minHeight="48dp"
+            android:onClick="newUserScreen"
             android:text="@string/txt_newaccount"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/btnLogin"

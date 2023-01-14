@@ -33,7 +33,9 @@
 
     <!-- RESET PASSWORD STRINGS -->
     <string name="txt_newpassword">Contraseña nueva</string>
+    <string name="txt_newpasswordconfirmation">Confirme su contraseña</string>
     <string name="txt_btnresetpassword">Reestablecer</string>
+
 
 
 </resources>
