@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +25,6 @@ import com.archivo.move.databinding.SideBarBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,21 +34,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import Login_RegisterActivity.LoginActivity;
-import Login_RegisterActivity.RegisterActivity;
+import MainActivity.ui.profile.Profile;
 
 
 public class Main extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private SideBarBinding binding;
     SharedPreferences sharedPreferences;
 
     ArrayList<Box> boxes = new ArrayList<>();
@@ -72,10 +66,7 @@ public class Main extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-
-
-
-        binding = SideBarBinding.inflate(getLayoutInflater());
+        com.archivo.move.databinding.SideBarBinding binding = SideBarBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -91,7 +82,7 @@ public class Main extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.profile_manager, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -172,6 +163,8 @@ public class Main extends AppCompatActivity {
     }
 
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -185,6 +178,9 @@ public class Main extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
+
 
     private void setUpBoxModels(){
 

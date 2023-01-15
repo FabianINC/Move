@@ -56,6 +56,12 @@ public class RegisterActivity extends AppCompatActivity {
                 password = txt_password.getText().toString();
                 passwordConfirmation = txt_confirmPassword.getText().toString();
 
+                if(!password.equals(passwordConfirmation)){
+
+                    showToastWrong("La contraseña y su confirmación deben coincidir");
+
+                }
+
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 String url ="http://192.168.100.5/login_register/register.php";
 

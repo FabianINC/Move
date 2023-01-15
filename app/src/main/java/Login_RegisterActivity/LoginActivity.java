@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // MÉTODO PARA USAR LA APP COMO 'Invitado'
     public void guestLogin(View view){
-        Intent mainScreen = new Intent(LoginActivity.this, Main.class);
+        Intent mainScreen = new Intent(this, Main.class);
 
         //LLAMADO A LA PANTALLA PRINCIPAL
         startActivity(mainScreen);

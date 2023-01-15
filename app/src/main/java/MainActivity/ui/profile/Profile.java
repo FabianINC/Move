@@ -1,4 +1,4 @@
-package MainActivity.ui.gallery;
+package MainActivity.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.archivo.move.databinding.FragmentGalleryBinding;
 
-public class GalleryFragment extends Fragment {
+public class Profile extends Fragment {
 
     private FragmentGalleryBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        ProfileViewModel profileViewModel =
+                new ViewModelProvider(this).get(ProfileViewModel.class);
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.profileManager;
+        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
