@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="MainActivity.Main">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -33,7 +34,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/color_sidebar"
+        android:background="@color/white"
         app:popupTheme="@style/Theme.Move.PopupOverlay" />
 
     <SearchView

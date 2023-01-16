@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         txt_email = findViewById(R.id.txtEmail);
         txt_password = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
+
+        /*
         sharedPreferences = getSharedPreferences("MyAppName" , MODE_PRIVATE);
 
         // SE MANTIENE LA SESION INICIADA UNA VEZ QUE HAYA INICIADO SESION
@@ -88,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                                        email = jsonObject.getString("email");
                                        apiKey = jsonObject.getString("apiKey");
 
-                                       /*Estos datos son utilizados en SharedPreferences lo que despues ayudara a
-                                         mantener la sesion iniciada despues de la primera vez que inicio sesion*/
+                                       Estos datos son utilizados en SharedPreferences lo que despues ayudara a
+                                         mantener la sesion iniciada despues de la primera vez que inicio sesion
                                        SharedPreferences.Editor editor = sharedPreferences.edit();
                                        editor.putString("logged" , "true");
                                        editor.putString("name" , name);
@@ -112,12 +114,12 @@ public class LoginActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
 
-                    /* SE MUESTRA UN TOAST CON EL ERROR */
+                     SE MUESTRA UN TOAST CON EL ERROR
                     public void onErrorResponse(VolleyError error) {
                         showUnsuccessfulToast(error.getMessage());
                     }
                 }){
-                    /**/
+
                     protected Map<String, String> getParams(){
                         Map<String, String> paramV = new HashMap<>();
 
@@ -129,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 queue.add(stringRequest);
             }
         });
+    */
     }
 
     // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO
