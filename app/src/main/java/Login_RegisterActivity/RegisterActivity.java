@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /* VARIABLE PARA VERIFICAR QUE SEA UN CORREO VALIDO */
-    final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\+.+[a-z]+";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     // MÉTODO PARA REALIZAR EL REGISTRO
     public void performRegister( View btnRegisterClicked ){
 
