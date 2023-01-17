@@ -1,10 +1,14 @@
 package Login_RegisterActivity;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,29 +18,37 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.archivo.move.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import MainActivity.Main;
 
 public class LoginActivity extends AppCompatActivity {
 
+
     // VARIABLES GLOBALES
-    EditText txt_email,txt_password;
-    String  email , password, name , apiKey;
-    Button btnLogin;
-    SharedPreferences sharedPreferences;
+    EditText input_email,input_password;
+    Button btnLogin, btnGoogle;
+
+    ProgressDialog loginProgress;
+
+    FirebaseAuth loginAuth;
+    FirebaseUser loginUser;
+
+
+    //String  email , password, name , apiKey;
+    //SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +56,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //SE IDENTIFICA CADA VARIABLE GLOBAL
-        txt_email = findViewById(R.id.txtEmail);
-        txt_password = findViewById(R.id.txtPassword);
+        input_email = findViewById(R.id.txtEmail);
+        input_password = findViewById(R.id.txtPassword);
+
         btnLogin = findViewById(R.id.btnLogin);
+        btnGoogle = findViewById(R.id.btnGoogleLogin);
+
+        //SE CREA UN NUEVO PROGRESS DIALOG
+        loginProgress = new ProgressDialog(LoginActivity.this);
+
+        loginAuth = FirebaseAuth.getInstance();
+        loginUser = loginAuth.getCurrentUser();
 
         /*
         sharedPreferences = getSharedPreferences("MyAppName" , MODE_PRIVATE);
@@ -134,6 +154,116 @@ public class LoginActivity extends AppCompatActivity {
     */
     }
 
+    /* VARIABLE PARA VERIFICAR QUE SEA UN CORREO VALIDO */
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    // MÉTODO PARA INICIAR SESIÓN CON CONRREO Y CONTRASEÑA
+    public void performEmailLogin(View btnLoginClicked){
+
+        // SE OBTIENEN TODOS LOS DATOS INGRESADOS
+        final String userEmail = input_email.getText().toString();
+        final String userPassword = input_password.getText().toString();
+
+        // VERIFICAMOS QUE EL CORREO SEA REALMENTE UN FORMATO DE CORREO
+        if( !userEmail.matches(emailPattern) ){
+            input_email.setError("Ingrese un correo eléctronico válido");
+            input_email.setText("");
+
+        // VERIFICAMOS SI LA CONTRASEÑA ESTÁ VACÍA O ES MUY CORTA
+        }else if( userPassword.isEmpty() || userPassword.length() < 6 ){
+            input_password.setError("Ingrese una contraseña válido");
+            input_password.setText("");
+
+        // SI TODAS LAS VERIFICACIONES SON CORRECTAS
+        }else{
+            loginProgress.setMessage("Por favor espere...");
+            loginProgress.setTitle("Verificando credenciles");
+            loginProgress.setCanceledOnTouchOutside(false);
+            loginProgress.show();
+
+            // SE REALIZA LA PETICIÓN PARA LOGEAR UN USUARIO
+            loginAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if( task.isSuccessful() ){
+                        loginProgress.dismiss();
+                        showSuccessfulToast("¡Bienvenido!");
+
+                        Intent mainScreen = new Intent(LoginActivity.this, Main.class);
+                        mainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(mainScreen);
+
+                    }else{
+                        loginProgress.dismiss();
+                        showUnsuccessfulToast(task.getException().getMessage());
+                    }
+
+                }
+            });
+
+        }
+    }
+
+    // MÉTODO PARA INICIAR SESIÓN CON GOOGLE
+    private static final int RC_SIGN_IN = 101;
+    public void performGoogleLogin(View btnGoogleLoginClicked ){
+
+        //CONFIGURANDO EL SERVICIO DE GOOGLE
+        GoogleSignInOptions googleSignIn = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, googleSignIn);
+
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent dataIntent){
+        super.onActivityResult(requestCode, resultCode, dataIntent);
+
+        //SE VERIFICA EL RESULTADO DEVUELTO DEL INTENT DEL LOGIN MEDIANTE GOOGLE
+        if( requestCode == RC_SIGN_IN ){
+            Task<GoogleSignInAccount> signInTask = GoogleSignIn.getSignedInAccountFromIntent(dataIntent);
+
+            try{
+                GoogleSignInAccount userAccount = signInTask.getResult(ApiException.class);
+                firebaseAuthWithGoogle(userAccount.getIdToken());
+            }catch(ApiException apiError){
+                showUnsuccessfulToast("Ha ocurrido un problema a la hora de conectarse");
+            }
+        }
+    }
+    private void firebaseAuthWithGoogle(String idToken){
+        AuthCredential userCredential = GoogleAuthProvider.getCredential(idToken, null);
+
+        loginAuth.signInWithCredential(userCredential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if(task.isSuccessful()){
+
+                            FirebaseUser signedUser = loginAuth.getCurrentUser();
+
+                            showSuccessfulToast("¡Bienvenido!");
+
+                            Intent mainScreen = new Intent(LoginActivity.this, Main.class);
+                            mainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(mainScreen);
+
+                        }else{
+                            showUnsuccessfulToast("No se ha podido iniciar sesión");
+                        }
+                    }
+                });
+    }
+
+    // MÉTODO PARA INICIAR SESIÓN CON FACEBOOK
+    public void performFacebookLogin(View btnFacebookLoginClicked ){
+
+    }
     // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO
     public void newUserScreen(View view){
         Intent registerScreen = new Intent(LoginActivity.this,RegisterActivity.class);
@@ -159,7 +289,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // METODO PARA MOSTRAR UN "TOAST" QUE FUE EFECTIVO
-    public void showSuccesfulToast(String toastMessage){
+    public void showSuccessfulToast(String toastMessage){
         LayoutInflater layoutInflater = getLayoutInflater();
         View toastRegistration = layoutInflater.inflate(R.layout.toast_check,(ViewGroup) findViewById(R.id.check_toast));
 

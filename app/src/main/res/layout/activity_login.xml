@@ -28,6 +28,7 @@
             android:background="@drawable/bg_gray"
             android:drawableStart="@drawable/ic_facebook"
             android:drawablePadding="10dp"
+            android:onClick="performFacebookLogin"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/txt_facebook"
@@ -80,11 +81,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_gray"
             android:drawableStart="@drawable/ic_google"
             android:drawablePadding="10dp"
+            android:onClick="performGoogleLogin"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/txt_google"
@@ -94,8 +95,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btnFacebookLogin"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNewAccount"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_otherLoginWays" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -103,6 +103,7 @@
             android:layout_height="58dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_green"
+            android:onClick="performEmailLogin"
             android:text="@string/txt_loginbutton"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -117,10 +118,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:background="@drawable/field"
-            android:drawableStart="@drawable/ic_person"
+            android:drawableStart="@drawable/ic_email"
             android:drawablePadding="10dp"
             android:ems="10"
-            android:hint="@string/txt_username"
+            android:hint="@string/txt_email"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
             android:paddingTop="10dp"
@@ -158,5 +159,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_x_black" />
+
+        <TextView
+            android:id="@+id/txt_otherLoginWays"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/txt_otherLoginWays"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/txtNewAccount"
+            app:layout_constraintHorizontal_bias="0.407"
+            app:layout_constraintStart_toStartOf="@+id/txtNewAccount"
+            app:layout_constraintTop_toBottomOf="@+id/txtNewAccount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

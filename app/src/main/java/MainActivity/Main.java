@@ -53,6 +53,7 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*
         //Sistema para cerrar sesion
         sharedPreferences = getSharedPreferences("MyAppName" , MODE_PRIVATE);
 
@@ -60,7 +61,7 @@ public class Main extends AppCompatActivity {
             startActivity(new Intent(Main.this, LoginActivity.class));
             finish();
         }
-
+*/
         //Desaraparece la decoracion superior e inferior que vienen por defecto
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);

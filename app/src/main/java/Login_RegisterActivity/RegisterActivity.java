@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
     /* VARIABLE PARA VERIFICAR QUE SEA UN CORREO VALIDO */
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     // MÉTODO PARA REALIZAR EL REGISTRO
-    public void performRegister( View btnRegisterClicked ){
+    public void performEmailRegister(View btnRegisterClicked ){
 
         // SE OBTIENEN TODOS LOS DATOS INGRESADOS
         final String userName = input_userName.getText().toString();
