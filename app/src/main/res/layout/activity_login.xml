@@ -95,7 +95,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btnFacebookLogin"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_otherLoginWays" />
+            app:layout_constraintTop_toBottomOf="@+id/txtOtherLoginWays" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -151,7 +151,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         <ImageView
-            android:id="@+id/exit_login"
+            android:id="@+id/imgGuestLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -161,7 +161,7 @@
             app:srcCompat="@drawable/ic_x_black" />
 
         <TextView
-            android:id="@+id/txt_otherLoginWays"
+            android:id="@+id/txtOtherLoginWays"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

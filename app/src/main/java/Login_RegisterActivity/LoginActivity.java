@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth loginAuth;
     FirebaseUser loginUser;
 
-
     //String  email , password, name , apiKey;
     //SharedPreferences sharedPreferences;
 
@@ -265,7 +264,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     // MÉTODO PARA MOSTRAR LA PANTALLA DE REGISTRO
-    public void newUserScreen(View view){
+    public void newUserScreen(View createAccountClicked){
         Intent registerScreen = new Intent(LoginActivity.this,RegisterActivity.class);
 
         // LLAMADO A LA PANTALLA DE REGISTRO
@@ -273,7 +272,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // MÉTODO PARA USAR LA APP COMO 'Invitado'
-    public void guestLogin(View view){
+    public void guestLogin(View guestLoginClicked){
         Intent mainScreen = new Intent(LoginActivity.this, Main.class);
 
         //LLAMADO A LA PANTALLA PRINCIPAL
@@ -281,7 +280,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // MÉTODO PARA REESTABLECER LA CONTRASEÑA
-    public void resetPassword(View view){
+    public void resetPassword(View resetPasswordClicked){
         Intent resetScreen = new Intent(LoginActivity.this, ResetPasswordActivity.class);
 
         // LLAMADO A LA PANTALLA DE REESTABLECIMIENTO DE CONTRASEÑA
